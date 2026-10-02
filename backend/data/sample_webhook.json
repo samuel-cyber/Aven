@@ -1,0 +1,6 @@
+{
+  "call_id": "test-001",
+  "customer_id": "CUS-1018",
+  "duration_sec": 118,
+  "transcript": "agent: Hello, this is Ada, an AI assistant from Demo Bank. This call may be recorded. Is now a good time?\ncustomer: Yeah, go ahead.\nagent: I noticed your 25000 naira transfer on 12 September failed. Is that what stopped you using the app?\ncustomer: Yes, they debited me and the money never reached my guy. I've not seen the refund since.\nagent: I'm really sorry about that. I can open a priority reversal ticket right now. Would that help?\ncustomer: Please do. If it's sorted I'll come back.\nagent: Done. You'll get an update within 24 hours. Thanks for your time."
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "CUS-1001", "name": "Tunde Bakare", "phone": "+2348031234501",
+    "preferred_language": "en", "days_inactive": 45,
+    "dormant_balance_ngn": 25400.0, "est_monthly_value_ngn": 3800.0,
+    "last_event_type": "failed_transfer",
+    "last_event_detail": "25000 NGN transfer to GTBank failed twice; debited but never reversed",
+    "last_event_days_ago": 47, "status": "recovered"
+  },
+  {
+    "id": "CUS-1002", "name": "Amaka Obi", "phone": "+2348052345602",
+    "preferred_language": "en", "days_inactive": 38,
+    "dormant_balance_ngn": 8500.0, "est_monthly_value_ngn": 1500.0,
+    "last_event_type": "fee_charge",
+    "last_event_detail": "1075 NGN fee charged on a 20000 NGN transfer",
+    "last_event_days_ago": 40, "status": "recovered"
+  },
+  {
+    "id": "CUS-1003", "name": "David Eze", "phone": "+2348073456703",
+    "preferred_language": "en", "days_inactive": 62,
+    "dormant_balance_ngn": 42000.0, "est_monthly_value_ngn": 5600.0,
+    "last_event_type": "card_declined",
+    "last_event_detail": "Card declined 3 times at POS in Ikeja",
+    "last_event_days_ago": 63, "status": "contacted"
+  },
+  {
+    "id": "CUS-1004", "name": "Chioma Nwosu", "phone": "+2348094567804",
+    "preferred_language": "en", "days_inactive": 29,
+    "dormant_balance_ngn": 75000.0, "est_monthly_value_ngn": 9200.0,
+    "last_event_type": "kyc_block",
+    "last_event_detail": "Account restricted pending BVN re-verification after suspicious activity",
+    "last_event_days_ago": 30, "status": "escalated"
+  },
+  {
+    "id": "CUS-1005", "name": "Emeka Umeh", "phone": "+2347015678905",
+    "preferred_language": "en", "days_inactive": 51,
+    "dormant_balance_ngn": 118500.0, "est_monthly_value_ngn": 12400.0,
+    "last_event_type": "failed_transfer",
+    "last_event_detail": "90000 NGN transfer failed; beneficiary never received funds",
+    "last_event_days_ago": 52, "status": "recovered"
+  },
+  {
+    "id": "CUS-1006", "name": "Ngozi Adeyemi", "phone": "+2347036789016",
+    "preferred_language": "en", "days_inactive": 33,
+    "dormant_balance_ngn": 15600.0, "est_monthly_value_ngn": 2100.0,
+    "last_event_type": "fee_charge",
+    "last_event_detail": "Unexplained 523 NGN SMS and stamp-duty charges",
+    "last_event_days_ago": 34, "status": "contacted"
+  },
+  {
+    "id": "CUS-1007", "name": "Femi Alabi", "phone": "+2347057890127",
+    "preferred_language": "en", "days_inactive": 74,
+    "dormant_balance_ngn": 233000.0, "est_monthly_value_ngn": 18500.0,
+    "last_event_type": "kyc_block",
+    "last_event_detail": "Account restricted pending BVN update; cannot withdraw",
+    "last_event_days_ago": 75, "status": "contacted"
+  },
+  {
+    "id": "CUS-1008", "name": "Aisha Bello", "phone": "+2347078901238",
+    "preferred_language": "en", "days_inactive": 22,
+    "dormant_balance_ngn": 396000.0, "est_monthly_value_ngn": 27000.0,
+    "last_event_type": "kyc_block",
+    "last_event_detail": "Account locked after unauthorised transfer attempts",
+    "last_event_days_ago": 23, "status": "escalated"
+  },
+  {
+    "id": "CUS-1009", "name": "Bola Ogundipe", "phone": "+2347099012349",
+    "preferred_language": "en", "days_inactive": 58,
+    "dormant_balance_ngn": 31500.0, "est_monthly_value_ngn": 4000.0,
+    "last_event_type": "failed_transfer",
+    "last_event_detail": "30000 NGN transfer to Access Bank failed once",
+    "last_event_days_ago": 59, "status": "contacted"
+  },
+  {
+    "id": "CUS-1010", "name": "Yusuf Idris", "phone": "+2348010123450",
+    "preferred_language": "en", "days_inactive": 87,
+    "dormant_balance_ngn": 64800.0, "est_monthly_value_ngn": 7300.0,
+    "last_event_type": "kyc_block",
+    "last_event_detail": "Tier limit blocked after incomplete KYC upgrade",
+    "last_event_days_ago": 88, "status": "contacted"
+  },
+  {
+    "id": "CUS-1011", "name": "Funke Adeleke", "phone": "+2348031234551",
+    "preferred_language": "en", "days_inactive": 41,
+    "dormant_balance_ngn": 19750.0, "est_monthly_value_ngn": 2600.0,
+    "last_event_type": "card_declined",
+    "last_event_detail": "Virtual card declined for online subscription payments",
+    "last_event_days_ago": 42, "status": "contacted"
+  },
+  {
+    "id": "CUS-1012", "name": "Kelechi Okafor", "phone": "+2348052345652",
+    "preferred_language": "en", "days_inactive": 69,
+    "dormant_balance_ngn": 88200.0, "est_monthly_value_ngn": 8100.0,
+    "last_event_type": "fee_charge",
+    "last_event_detail": "Multiple transfer fees in one month totalled 4300 NGN",
+    "last_event_days_ago": 70, "status": "contacted"
+  },
+  {
+    "id": "CUS-1013", "name": "Ada Nnamdi", "phone": "+2348073456753",
+    "preferred_language": "en", "days_inactive": 26,
+    "dormant_balance_ngn": 12400.0, "est_monthly_value_ngn": 1900.0,
+    "last_event_type": "card_declined",
+    "last_event_detail": "Card declined at ATM withdrawal twice",
+    "last_event_days_ago": 27, "status": "recovered"
+  },
+  {
+    "id": "CUS-1014", "name": "Segun Afolabi", "phone": "+2348094567854",
+    "preferred_language": "en", "days_inactive": 55,
+    "dormant_balance_ngn": 172300.0, "est_monthly_value_ngn": 15800.0,
+    "last_event_type": "failed_transfer",
+    "last_event_detail": "150000 NGN rent transfer failed and was debited",
+    "last_event_days_ago": 56, "status": "recovered"
+  },
+  {
+    "id": "CUS-1015", "name": "Halima Sule", "phone": "+2347015678955",
+    "preferred_language": "en", "days_inactive": 35,
+    "dormant_balance_ngn": 9600.0, "est_monthly_value_ngn": 1400.0,
+    "last_event_type": "fee_charge",
+    "last_event_detail": "Card maintenance fee charged on an inactive account",
+    "last_event_days_ago": 36, "status": "recovered"
+  },
+  {
+    "id": "CUS-1016", "name": "Obinna Eze", "phone": "+2347036789066",
+    "preferred_language": "en", "days_inactive": 90,
+    "dormant_balance_ngn": 47500.0, "est_monthly_value_ngn": 5100.0,
+    "last_event_type": "card_declined",
+    "last_event_detail": "Card expired and replacement never arrived",
+    "last_event_days_ago": 91, "status": "dormant"
+  },
+  {
+    "id": "CUS-1017", "name": "Zainab Musa", "phone": "+2347057890177",
+    "preferred_language": "en", "days_inactive": 78,
+    "dormant_balance_ngn": 21300.0, "est_monthly_value_ngn": 2800.0,
+    "last_event_type": "failed_transfer",
+    "last_event_detail": "20000 NGN transfer to Kano failed twice; app crashed on each attempt",
+    "last_event_days_ago": 79, "status": "dormant"
+  },
+  {
+    "id": "CUS-1018", "name": "Demo Customer", "phone": "+2347000000000",
+    "preferred_language": "en", "days_inactive": 30,
+    "dormant_balance_ngn": 25000.0, "est_monthly_value_ngn": 3500.0,
+    "last_event_type": "failed_transfer",
+    "last_event_detail": "25000 NGN transfer failed at the demo venue; placeholder record",
+    "last_event_days_ago": 31, "status": "dormant", "is_demo": true
+  }
+]
