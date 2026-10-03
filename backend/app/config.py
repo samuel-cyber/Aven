@@ -14,6 +14,12 @@ WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "")
 # LLM extraction (Anthropic-compatible). Empty key -> fallback extraction.
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 LLM_MODEL = os.getenv("LLM_MODEL", "claude-sonnet-4-20250514")
+# Optional explicit base URL for an Anthropic-compatible endpoint. When empty we
+# fall back to the SDK default (which honours a global ANTHROPIC_BASE_URL env var).
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "")
+# Optional workspace id. Required only when the key is not scoped to a workspace
+# (the API then asks for an "anthropic-workspace-id" header).
+LLM_WORKSPACE_ID = os.getenv("LLM_WORKSPACE_ID", "")
 
 # BimpeAI voice platform. Confirmed against docs.bimpe.ai and the official
 # Python SDK (bimpeai 0.4.1): the Console REST API lives at

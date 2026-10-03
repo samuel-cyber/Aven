@@ -37,5 +37,7 @@ def offline_config(monkeypatch):
 
     # LLM: no key -> extraction falls back (tests monkeypatch the LLM anyway).
     monkeypatch.setattr(config, "LLM_API_KEY", "")
+    monkeypatch.setattr(config, "LLM_BASE_URL", "")
+    monkeypatch.setattr(config, "LLM_WORKSPACE_ID", "")
 
     yield

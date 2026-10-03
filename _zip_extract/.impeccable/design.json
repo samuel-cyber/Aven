@@ -1,0 +1,531 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T12:01:42.475237+00:00",
+  "title": "Design System: Aven",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Sage Canvas",
+        "canonical": "#e8ebe6",
+        "tonalRamp": [
+          "#0a0c09",
+          "#252724",
+          "#434642",
+          "#646763",
+          "#878a86",
+          "#acafaa",
+          "#cfd2cd",
+          "#edf0eb"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Card",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "card-soft": {
+        "role": "neutral",
+        "displayName": "Card Soft",
+        "canonical": "#f3f5f1",
+        "tonalRamp": [
+          "#0a0c09",
+          "#262724",
+          "#444642",
+          "#656763",
+          "#888a86",
+          "#adafab",
+          "#d0d2ce",
+          "#edefeb"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#dfe3dc",
+        "tonalRamp": [
+          "#0a0c08",
+          "#252822",
+          "#434641",
+          "#646761",
+          "#878a84",
+          "#acafa9",
+          "#ced2cc",
+          "#ecf0e9"
+        ]
+      },
+      "ink": {
+        "role": "secondary",
+        "displayName": "Ink",
+        "canonical": "#0e0f0c",
+        "tonalRamp": [
+          "#0b0c09",
+          "#262724",
+          "#444642",
+          "#656763",
+          "#888a86",
+          "#adafaa",
+          "#d0d2cd",
+          "#eeefeb"
+        ]
+      },
+      "ink-deep": {
+        "role": "secondary",
+        "displayName": "Ink Deep",
+        "canonical": "#163300",
+        "tonalRamp": [
+          "#001100",
+          "#122f00",
+          "#304f1d",
+          "#51713f",
+          "#739561",
+          "#97ba85",
+          "#badea7",
+          "#d7fcc3"
+        ]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body",
+        "canonical": "#454745",
+        "tonalRamp": [
+          "#0a0c0a",
+          "#252725",
+          "#444644",
+          "#656765",
+          "#888a88",
+          "#acafac",
+          "#cfd2cf",
+          "#edefed"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Mute",
+        "canonical": "#6b6d6a",
+        "tonalRamp": [
+          "#0a0c09",
+          "#252724",
+          "#444643",
+          "#656764",
+          "#888a87",
+          "#acafab",
+          "#cfd2ce",
+          "#edefec"
+        ]
+      },
+      "lime": {
+        "role": "primary",
+        "displayName": "Aven Lime",
+        "canonical": "#9fe870",
+        "tonalRamp": [
+          "#001400",
+          "#003400",
+          "#0e5600",
+          "#357900",
+          "#599e1e",
+          "#7ec54c",
+          "#a0e971",
+          "#bdff8f"
+        ]
+      },
+      "lime-hover": {
+        "role": "primary",
+        "displayName": "Lime Hover",
+        "canonical": "#cdffad",
+        "tonalRamp": [
+          "#001200",
+          "#073100",
+          "#285100",
+          "#497426",
+          "#6b984b",
+          "#8fbe6f",
+          "#b1e292",
+          "#ceffae"
+        ]
+      },
+      "lime-neutral": {
+        "role": "tertiary",
+        "displayName": "Lime Neutral",
+        "canonical": "#c5edab",
+        "tonalRamp": [
+          "#001100",
+          "#102f00",
+          "#2f5011",
+          "#4f7235",
+          "#719658",
+          "#95bc7c",
+          "#b8df9e",
+          "#d5fdbb"
+        ]
+      },
+      "lime-pale": {
+        "role": "tertiary",
+        "displayName": "Lime Pale",
+        "canonical": "#e2f6d5",
+        "tonalRamp": [
+          "#040f00",
+          "#1d2b12",
+          "#3b4b30",
+          "#5b6c50",
+          "#7e9072",
+          "#a2b596",
+          "#c5d8b8",
+          "#e2f6d5"
+        ]
+      },
+      "positive": {
+        "role": "semantic",
+        "displayName": "Positive",
+        "canonical": "#2ead4b",
+        "tonalRamp": [
+          "#001700",
+          "#003800",
+          "#005a00",
+          "#007e1e",
+          "#28a345",
+          "#57ca6a",
+          "#7def8d",
+          "#9bffaa"
+        ]
+      },
+      "positive-deep": {
+        "role": "semantic",
+        "displayName": "Positive Deep",
+        "canonical": "#054d28",
+        "tonalRamp": [
+          "#001400",
+          "#00320f",
+          "#0f532d",
+          "#37754d",
+          "#5b9970",
+          "#80bf93",
+          "#a2e3b6",
+          "#bfffd3"
+        ]
+      },
+      "warning": {
+        "role": "semantic",
+        "displayName": "Warning",
+        "canonical": "#ffd11a",
+        "tonalRamp": [
+          "#220000",
+          "#431a00",
+          "#653c00",
+          "#895f00",
+          "#ae8300",
+          "#d4a900",
+          "#f9cc21",
+          "#ffea50"
+        ]
+      },
+      "warning-deep": {
+        "role": "semantic",
+        "displayName": "Warning Deep",
+        "canonical": "#b86700",
+        "tonalRamp": [
+          "#2d0000",
+          "#510100",
+          "#762a00",
+          "#9d4e00",
+          "#c4721a",
+          "#ed9749",
+          "#ffbb6d",
+          "#ffd88b"
+        ]
+      },
+      "warning-content": {
+        "role": "semantic",
+        "displayName": "Warning Content",
+        "canonical": "#4a3b1c",
+        "tonalRamp": [
+          "#150800",
+          "#322404",
+          "#524324",
+          "#746444",
+          "#988766",
+          "#bdac8a",
+          "#e1cfac",
+          "#ffecc8"
+        ]
+      },
+      "warning-pale": {
+        "role": "semantic",
+        "displayName": "Warning Pale",
+        "canonical": "#fff4c2",
+        "tonalRamp": [
+          "#130900",
+          "#302600",
+          "#4f4517",
+          "#706639",
+          "#948a5b",
+          "#b9af7f",
+          "#ddd2a1",
+          "#faefbe"
+        ]
+      },
+      "negative": {
+        "role": "semantic",
+        "displayName": "Negative",
+        "canonical": "#d03238",
+        "tonalRamp": [
+          "#390000",
+          "#610000",
+          "#8a000d",
+          "#b32d31",
+          "#dd5654",
+          "#ff7d77",
+          "#ffa099",
+          "#ffbeb6"
+        ]
+      },
+      "negative-deep": {
+        "role": "semantic",
+        "displayName": "Negative Deep",
+        "canonical": "#a72027",
+        "tonalRamp": [
+          "#390000",
+          "#610000",
+          "#8a000d",
+          "#b32e31",
+          "#dd5653",
+          "#ff7d77",
+          "#ffa099",
+          "#ffbeb5"
+        ]
+      },
+      "negative-pale": {
+        "role": "semantic",
+        "displayName": "Negative Pale",
+        "canonical": "#fbe3e3",
+        "tonalRamp": [
+          "#150707",
+          "#322122",
+          "#524040",
+          "#756060",
+          "#998383",
+          "#bea8a8",
+          "#e2caca",
+          "#ffe8e8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Balance",
+        "purpose": "Value at risk on the hero card only."
+      },
+      "headline": {
+        "displayName": "Statement figure",
+        "purpose": "The four stats."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card titles, customer names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose and transcripts."
+      },
+      "body-strong": {
+        "displayName": "Body strong",
+        "purpose": "Names, outcomes, list items."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Labels, badges, filters, table headers."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Naira amounts, tabular."
+      }
+    },
+    "shadows": [
+      {
+        "name": "float",
+        "value": "0 12px 32px -12px rgb(22 51 0 / 0.28), 0 2px 8px -2px rgb(22 51 0 / 0.12)",
+        "purpose": "Floating layers only (chart tooltip)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Entrances, presses, the result wipe."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "On-screen movement: sliding thumbs, feed reorder, chart growth, waveform."
+      },
+      {
+        "name": "press",
+        "value": "140ms scale(0.97)",
+        "purpose": "Button feedback."
+      },
+      {
+        "name": "indicator",
+        "value": "250ms",
+        "purpose": "Tab and filter thumbs (shared layout)."
+      },
+      {
+        "name": "view",
+        "value": "220ms fade + 8px lift",
+        "purpose": "Tab and panel swaps."
+      },
+      {
+        "name": "waveform",
+        "value": "900ms alternate, staggered",
+        "purpose": "Live call signature."
+      },
+      {
+        "name": "post",
+        "value": "450ms clip-path wipe + 2.4s lime glow",
+        "purpose": "A synced call posting into the feed."
+      },
+      {
+        "name": "count",
+        "value": "800ms (1100ms on first load)",
+        "purpose": "Figures counting to new values."
+      },
+      {
+        "name": "first-load",
+        "value": "520ms rise, 70ms stagger",
+        "purpose": "Cards on first page load only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "stack",
+        "value": "1100px"
+      },
+      {
+        "name": "compact",
+        "value": "1360px"
+      },
+      {
+        "name": "wide-table",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one lime action per panel: call the customer or run the sample.",
+      "html": "<button class=\"ds-btn-primary\">Call Tunde</button>",
+      "css": ".ds-btn-primary{font-family:'Inter Variable',Inter,system-ui,sans-serif;height:52px;padding:0 24px;border:0;border-radius:9999px;background:#9fe870;color:#0e0f0c;font-size:16px;font-weight:650;cursor:pointer;transition:transform 140ms cubic-bezier(0.23,1,0.32,1),background-color 200ms ease}.ds-btn-primary:hover{background:#cdffad}.ds-btn-primary:active{transform:scale(0.97)}.ds-btn-primary:focus-visible{outline:2px solid #0e0f0c;outline-offset:3px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Sage pill for secondary actions: sample conversations, Mark done.",
+      "html": "<button class=\"ds-btn\">Mark done</button>",
+      "css": ".ds-btn{font-family:'Inter Variable',Inter,system-ui,sans-serif;height:34px;padding:0 16px;border:0;border-radius:9999px;background:#e8ebe6;color:#0e0f0c;font-size:14px;font-weight:600;cursor:pointer;transition:transform 140ms cubic-bezier(0.23,1,0.32,1),background-color 200ms ease}.ds-btn:hover{background:#dde2d9}.ds-btn:active{transform:scale(0.97)}.ds-btn:focus-visible{outline:2px solid #0e0f0c;outline-offset:3px}"
+    },
+    {
+      "name": "Status Badges",
+      "kind": "chip",
+      "refersTo": "badge-recovered",
+      "description": "Pill badges tinted by status, always labelled.",
+      "html": "<span class=\"ds-b ds-risk\">At risk</span> <span class=\"ds-b ds-prog\">Recovery in progress</span> <span class=\"ds-b ds-rec\">Recovered</span> <span class=\"ds-b ds-esc\">Escalated</span>",
+      "css": ".ds-b{font-family:'Inter Variable',Inter,system-ui,sans-serif;display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:9999px;font-size:13px;font-weight:650}.ds-risk{background:#fbe3e3;color:#a72027}.ds-prog{background:#e2f6d5;color:#054d28}.ds-rec{background:#163300;color:#9fe870}.ds-esc{background:#ffd11a;color:#4a3b1c}"
+    },
+    {
+      "name": "Hero Card",
+      "kind": "card",
+      "refersTo": "card-hero",
+      "description": "The dark ink card carrying value at risk in lime.",
+      "html": "<div class=\"ds-hero\"><p>Value at risk</p><strong>₦1,059,650</strong></div>",
+      "css": ".ds-hero{background:#0e0f0c;border-radius:24px;padding:24px 32px;width:420px}.ds-hero p{font-family:'Inter Variable',Inter,system-ui,sans-serif;margin:0;color:#c5edab;font-weight:600}.ds-hero strong{font-family:'Figtree Variable',Figtree,system-ui,sans-serif;display:block;color:#9fe870;font-size:64px;font-weight:900;letter-spacing:-0.035em;line-height:1}"
+    },
+    {
+      "name": "Feed Row",
+      "kind": "custom",
+      "refersTo": "well",
+      "description": "A customer row with Aven's latest outcome in a well beneath it.",
+      "html": "<div class=\"ds-feed\"><div class=\"ds-row\"><span class=\"ds-av\">TB</span><span><b>Tunde Bakare</b><small>Transfer failed, 17 Aug</small></span><b class=\"ds-amt\">₦25,400</b></div><div class=\"ds-out\"><b>Retry / reversal ticket agreed</b><small>3 days ago</small></div></div>",
+      "css": ".ds-feed{font-family:'Inter Variable',Inter,system-ui,sans-serif;background:#fff;border-radius:24px;padding:12px;width:480px;color:#0e0f0c}.ds-row{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center}.ds-row small,.ds-out small{display:block;color:#454745;font-size:14px}.ds-av{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#163300;color:#9fe870;font-weight:800}.ds-amt{font-variant-numeric:tabular-nums}.ds-out{margin:8px 0 0 52px;padding:10px 12px;border-radius:16px;background:#f3f5f1;display:flex;justify-content:space-between;align-items:center}"
+    },
+    {
+      "name": "Segmented Filter",
+      "kind": "nav",
+      "refersTo": "segmented-thumb",
+      "description": "Sage pill track with a white thumb that slides to the active option.",
+      "html": "<div class=\"ds-seg\"><button aria-pressed=\"true\">Everyone <span>18</span></button><button>Not called <span>3</span></button><button>Fixed <span>7</span></button></div>",
+      "css": ".ds-seg{font-family:'Inter Variable',Inter,system-ui,sans-serif;display:inline-flex;padding:4px;gap:2px;border-radius:9999px;background:#e8ebe6}.ds-seg button{height:34px;padding:0 14px;border:0;border-radius:9999px;background:transparent;color:#454745;font:600 14px 'Inter Variable',system-ui;cursor:pointer}.ds-seg button[aria-pressed=true]{background:#fff;color:#0e0f0c;box-shadow:0 1px 2px rgb(22 51 0/.12)}.ds-seg span{color:#6b6d6a;margin-left:6px}"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "White field with an ink border.",
+      "html": "<label class=\"ds-search\"><input placeholder=\"Name or ID\" /></label>",
+      "css": ".ds-search{display:inline-flex;align-items:center;height:44px;padding:0 16px;border:1px solid #0e0f0c;border-radius:12px;background:#fff}.ds-search:focus-within{outline:2px solid #0e0f0c;outline-offset:1px}.ds-search input{font-family:'Inter Variable',Inter,system-ui,sans-serif;border:0;outline:0;background:transparent;color:#0e0f0c;font-size:15px;width:180px}.ds-search input::placeholder{color:#6b6d6a}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Friendly Ledger",
+    "overview": "Aven borrows the Wise design language (from `design-references/design-md/wise`) and keeps its own brand. It is a calm sage page, white cards with generous 24px corners, one lime accent, and heavy, friendly figures. It is meant to read like a modern consumer fintech app that a bank's ops team would actually enjoy using, not an AI ops console. Recovery is presented as a bank app's activity feed: each dormant customer is a row with a face (initials), a reason and an amount, and Aven's call writes the next line underneath.\n\nElevation comes from surface contrast, not shadows: white cards on sage, sage-tinted wells inside white cards, and one dark ink card for the headline figure. Colour is semantic. Lime is the brand and the call to action. Green, yellow and red carry status, and they always come with a text label.\n\nMotion is purposeful and has one authored moment. The live-call voice waveform plays while Aven talks. Then the result wipes into the feed with a lime glow, and the figures count to their new values. Everything else is a quick, quiet transition.",
+    "keyCharacteristics": [
+      "Sage canvas, white cards, 24px corners, no borders and no shadows on cards.",
+      "Lime is the primary action and the hero figure only.",
+      "Heavy Figtree figures for money and counts; Inter for the interface.",
+      "Initials avatars and pill badges tinted by status.",
+      "One signature motion sequence: waveform, wipe-in with glow, count-up."
+    ],
+    "rules": [
+      {
+        "name": "The One Lime Rule",
+        "body": "Lime fills the primary call button, the hero figure, the brand mark and the live waveform. Nothing else is lime.",
+        "section": "colors"
+      },
+      {
+        "name": "The Label Beside Colour Rule",
+        "body": "Every status colour is paired with its text label or an icon, so meaning never rests on hue alone.",
+        "section": "colors"
+      },
+      {
+        "name": "The Heavy Figures Rule",
+        "body": "Money and counts that matter are set in Figtree at weight 800 or more. Inter carries everything you read rather than scan.",
+        "section": "typography"
+      },
+      {
+        "name": "The Surface Is The Elevation Rule",
+        "body": "Hierarchy comes from white-on-sage and sage-on-white, never from drop shadows on cards.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "keep lime to the primary action, the hero figure, the mark and the live waveform (The One Lime Rule).",
+      "show money as whole naira with tabular figures, and show status as a labelled pill.",
+      "keep the Overview's first screen inside 1280×720: the hero, at least four feed rows, and the panel's call button.",
+      "animate only state changes and the signature call sequence. Keep tab and filter changes near-imperceptible, and honour reduced motion.",
+      "label sample conversations and fallback extraction as what they are."
+    ],
+    "donts": [
+      "return to the dark console look: no near-black page, no mono status codes, no neon chips.",
+      "add shadows or borders to cards, or nest a card inside a card.",
+      "use the Wise name, flag mark or wordmark lockup. Aven borrows the design language, not the brand.",
+      "run looping animations at rest. Only the live call is allowed to move continuously.",
+      "set display type tighter than -0.035em, or below weight 800 for headline figures."
+    ]
+  }
+}

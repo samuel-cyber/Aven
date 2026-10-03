@@ -65,6 +65,17 @@ everything only on the transcript."""
 FENCE_STARTS = ("```json", "```JSON", "```")
 
 
+def _log(message: str) -> None:
+    """Print a diagnostic without ever raising (Windows consoles are cp1252)."""
+    try:
+        print(message)
+    except Exception:  # noqa: BLE001 - logging must never break the pipeline
+        try:
+            print(message.encode("ascii", "replace").decode("ascii"))
+        except Exception:  # noqa: BLE001
+            pass
+
+
 def _clean(text: str) -> str:
     t = text.strip()
     for start in FENCE_STARTS:
@@ -104,8 +115,17 @@ def extract(transcript, customer: dict) -> Extraction:
     if not config.LLM_API_KEY or not _HAS_ANTHROPIC:
         return FALLBACK
     user = f"Customer context: {json.dumps(customer)}\n\nTranscript:\n{text}"
+    # Pin the endpoint explicitly: a stray global ANTHROPIC_BASE_URL would
+    # otherwise silently redirect extraction to an unrelated relay/proxy.
+    headers = {}
+    if config.LLM_WORKSPACE_ID:
+        headers["anthropic-workspace-id"] = config.LLM_WORKSPACE_ID
     try:
-        client = anthropic.Anthropic(api_key=config.LLM_API_KEY)
+        client = anthropic.Anthropic(
+            api_key=config.LLM_API_KEY,
+            base_url=config.LLM_BASE_URL or "https://api.anthropic.com",
+            default_headers=headers or None,
+        )
     except Exception:
         return FALLBACK
     for _ in range(2):
@@ -118,5 +138,5 @@ def extract(transcript, customer: dict) -> Extraction:
             )
             return Extraction.model_validate_json(_clean(msg.content[0].text))
         except Exception as e:  # noqa: BLE001 - any failure -> retry once -> fallback
-            print("extract retry:", e)
+            _log(f"extract retry: {type(e).__name__}: {e}")
     return FALLBACK

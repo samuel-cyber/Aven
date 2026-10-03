@@ -114,8 +114,10 @@ once a real number is linked and you want a real phone to ring.
 |---|---|---|
 | `DB_PATH` | `aven.db` | SQLite file. Relative paths resolve to the CWD you run uvicorn from. |
 | `WEBHOOK_SECRET` | `dev-secret` | Sent as `x-webhook-secret` when BimpeAI posts a webhook. Empty = no check. |
-| `LLM_API_KEY` | *(empty)* | Anthropic-compatible key. **Empty → rule-based fallback extraction** (demo still works). |
+| `LLM_API_KEY` | *(empty)* | Anthropic key. **Empty → rule-based fallback extraction** (demo still works). |
 | `LLM_MODEL` | `claude-sonnet-4-20250514` | Model used for extraction. |
+| `LLM_BASE_URL` | `https://api.anthropic.com` | Endpoint to call. Pinned explicitly so a stray global `ANTHROPIC_BASE_URL` (e.g. a relay set on your machine) can't hijack requests. |
+| `LLM_WORKSPACE_ID` | *(empty)* | Only for **unscoped** keys. Anthropic then requires an `anthropic-workspace-id` header; set this to your workspace id. |
 | `BIMPEAI_API_KEY` | *(empty)* | BimpeAI `sk_...` key. **Empty → calls are stubbed** (dev safe). |
 | `BIMPEAI_AGENT_ID` | *(empty)* | The Aven agent id. |
 | `BIMPEAI_PHONE_NUMBER` | *(empty)* | Linked caller id (informational). |
@@ -130,6 +132,14 @@ once a real number is linked and you want a real phone to ring.
 **Zero-key demo:** with `LLM_API_KEY` and `BIMPEAI_API_KEY` both empty, the whole
 pipeline still runs — extraction falls back to rules and calls are stubbed.
 Nothing crashes.
+
+> **LLM key gotcha.** Anthropic keys created in the Console can be **unscoped**
+> (no workspace). Those keys authenticate but every request fails with
+> `400 ... must include the anthropic-workspace-id header`. Fix it one of two ways:
+> create a **workspace-scoped** key, or set `LLM_WORKSPACE_ID=<workspace id>`.
+> A `401 invalid token` instead means the key/endpoint is wrong — check that you
+> are not being routed through a global `ANTHROPIC_BASE_URL` relay (Aven pins the
+> endpoint itself, so this should not happen once `LLM_BASE_URL` is set).
 
 ---
 
@@ -302,7 +312,7 @@ Both paths call the same `run_pipeline()`.
 | Transcript empty | The call didn't connect (test telephony) — try a live call, or check the agent channel. |
 | 400 "customer not found" | Run `python -m scripts.seed` and use a real id like `CUS-1042`. |
 | Dashboard shows nothing | Confirm `DB_PATH` points at the file uvicorn is writing; check the `DB:` caption. |
-| Extraction always `fallback` | `LLM_API_KEY` is empty or `anthropic` not installed. Fine for the demo. |
+| Extraction always `fallback` | Check the server log line `extract retry:<Type>: <msg>`. Common: key empty, `anthropic` not installed, `400 workspace-id` (unscoped key → set `LLM_WORKSPACE_ID`), or `401` (bad key/endpoint). Falls back quietly by design. |
 | Webhook 401/403 | The `x-webhook-secret` header must match `WEBHOOK_SECRET`. |
 
 ---

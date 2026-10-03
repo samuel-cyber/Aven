@@ -140,6 +140,7 @@ def start_call(
         "call_id": data.get("call_id"),
         "detail": data.get("detail"),
         "is_test_call": bool(test_call),
+        "payload": body,
         "raw": data,
     }
 
