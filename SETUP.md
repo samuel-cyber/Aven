@@ -213,6 +213,16 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+> **Python 3.14:** if `pip install` starts building `numpy` from source and
+> fails with `Unknown compiler(s)` / `metadata-generation-failed`, force
+> prebuilt wheels instead:
+>
+> ```bash
+> pip install --only-binary=:all: -r requirements.txt
+> ```
+>
+> The pins in `dashboard/requirements.txt` are known to have 3.11–3.14 wheels.
+
 - Opens at http://localhost:8501.
 - Reads the SQLite DB directly and auto-refreshes every 3 seconds.
 - It auto-discovers `backend/aven.db` or `./aven.db`; override with

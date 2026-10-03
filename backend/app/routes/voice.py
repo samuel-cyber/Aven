@@ -35,9 +35,15 @@ def customer_context(customer_id: str):
 def start_call(
     customer_id: str,
     is_test_call: Optional[bool] = Query(default=None),
+    destination: Optional[str] = Query(
+        default=None,
+        description="Override the dialled number, e.g. +2348012345678 to ring yourself.",
+    ),
 ):
     """Trigger an outbound BimpeAI call and return its call_id."""
-    result = voice.start_voice_call(customer_id, is_test_call=is_test_call)
+    result = voice.start_voice_call(
+        customer_id, is_test_call=is_test_call, destination=destination
+    )
     if not result.get("ok"):
         raise HTTPException(status_code=400, detail=result.get("error", "call failed"))
     return result

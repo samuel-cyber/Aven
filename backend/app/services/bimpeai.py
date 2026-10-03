@@ -100,8 +100,18 @@ def _request(method: str, path: str, *, json_body: dict | None = None, params: d
 # --------------------------------------------------------------------------- #
 
 
-def start_call(customer_id: str, context: dict, *, is_test_call: bool | None = None) -> dict:
+def start_call(
+    customer_id: str,
+    context: dict,
+    *,
+    is_test_call: bool | None = None,
+    destination: str | None = None,
+) -> dict:
     """Start an outbound call for a customer.
+
+    ``destination`` overrides the number dialled — use it to ring a specific
+    number (e.g. your own) instead of the customer's stored phone. Resolution
+    order: explicit ``destination`` -> ``context['phone']`` -> test destination.
 
     Returns a dict with at least ``status`` ("initiated"|"busy"|"failed" or
     "stubbed") and, when real, ``call_id`` and ``detail``. When no API key is
@@ -109,8 +119,9 @@ def start_call(customer_id: str, context: dict, *, is_test_call: bool | None = N
     so the whole pipeline stays testable offline.
     """
     test_call = config.BIMPEAI_IS_TEST_CALL if is_test_call is None else is_test_call
-    destination = context.get("phone") or config.BIMPEAI_TEST_DESTINATION
-    if test_call and not destination:
+    resolved = (destination or context.get("phone") or "").strip()
+    destination = resolved or config.BIMPEAI_TEST_DESTINATION
+    if test_call and not resolved:
         destination = config.BIMPEAI_TEST_DESTINATION
 
     body = {

@@ -1,3 +1,11 @@
-streamlit
-pandas
-requests
+# Aven dashboard dependencies.
+#
+# NOTE: pinned to versions that ship prebuilt wheels for Python 3.11–3.14.
+# If you are on Python 3.14 and `pip install -r` tries to compile numpy from
+# source, force binary wheels instead:
+#
+#     python -m pip install --only-binary=:all: -r requirements.txt
+#
+streamlit==1.65.0
+pandas==3.0.6
+requests==2.34.2

@@ -15,6 +15,7 @@ import sqlite3
 from pathlib import Path
 
 import pandas as pd
+import requests
 import streamlit as st
 
 # --------------------------------------------------------------------------- #
@@ -71,6 +72,243 @@ def _num(value, default: float = 0.0) -> float:
 st.title("Aven")
 st.caption("Voice-first dormant customer recovery — powered by BimpeAI")
 st.caption(f"DB: `{DB}`")
+
+# Backend that owns the BimpeAI integration. Override with API_BASE_URL.
+API_BASE = os.getenv("API_BASE_URL", "http://localhost:8000").rstrip("/")
+
+
+# --------------------------------------------------------------------------- #
+# Place a call (drives the backend /voice endpoints)
+# --------------------------------------------------------------------------- #
+def _call_panel() -> None:
+    with st.expander("📞 Place a call (BimpeAI)", expanded=True):
+        cdf = q(
+            "SELECT id, name, phone, status, dormant_balance_ngn "
+            "FROM customers ORDER BY dormant_balance_ngn DESC"
+        )
+        if cdf.empty:
+            st.info("No customers yet. Run `python -m scripts.seed` in `backend/`.")
+            return
+
+        labels = [
+            f"{r['name']}  ·  {r['id']}  ·  ₦{_num(r['dormant_balance_ngn']):,.0f}"
+            for _, r in cdf.iterrows()
+        ]
+        ids = list(cdf["id"])
+        idx = st.selectbox(
+            "Customer",
+            options=range(len(ids)),
+            format_func=lambda i: labels[i],
+            key="call_customer",
+        )
+        customer_id = ids[idx]
+
+        c1, c2 = st.columns([1, 2])
+        test_call = c1.toggle(
+            "Test call",
+            value=True,
+            help="BimpeAI test telephony — works with no live number. Turn off for a real call.",
+        )
+        c2.caption(f"Backend API: `{API_BASE}`  ·  call is placed by BimpeAI, the agent talks, then press Sync.")
+
+        dial = st.text_input(
+            "Dial this number instead (optional)",
+            value="",
+            placeholder="+2348012345678 — leave blank to use the customer's stored phone",
+            help="Put your OWN number here to ring yourself. Works for both test and live calls.",
+        ).strip()
+
+        b1, b2 = st.columns(2)
+        if b1.button("☎️ Start call", type="primary"):
+            try:
+                params = {"is_test_call": str(test_call).lower()}
+                if dial:
+                    params["destination"] = dial
+                resp = requests.post(
+                    f"{API_BASE}/voice/customers/{customer_id}/call",
+                    params=params,
+                    timeout=60,
+                )
+                data = resp.json()
+                if resp.ok and data.get("ok"):
+                    st.session_state["last_call_id"] = data.get("call_id")
+                    st.session_state["last_customer_id"] = customer_id
+                    dialed = data.get("destination") or dial or "the customer's number"
+                    st.success(
+                        f"Call started to `{dialed}` — call_id `{data.get('call_id')}` "
+                        f"(status: {data.get('status')}). Let the agent talk, then press Sync."
+                    )
+                else:
+                    st.error(
+                        "Could not start call: "
+                        + str(data.get("detail") or data.get("error") or resp.text)
+                    )
+            except Exception as exc:  # noqa: BLE001
+                st.error(f"Backend not reachable at {API_BASE}: {exc}")
+
+        if b2.button("⬇️ Sync & process last call"):
+            cid = st.session_state.get("last_call_id")
+            cust = st.session_state.get("last_customer_id", customer_id)
+            if not cid:
+                st.warning("No call started in this browser session yet.")
+            else:
+                with st.spinner("Waiting for the call to end, then extracting…"):
+                    try:
+                        resp = requests.post(
+                            f"{API_BASE}/voice/customers/{cust}/calls/{cid}/sync",
+                            params={"wait": "true"},
+                            timeout=600,
+                        )
+                        data = resp.json()
+                        if resp.ok:
+                            st.success(f"Processed call {cid}: {data}")
+                        else:
+                            st.error(f"Sync failed: {data}")
+                    except Exception as exc:  # noqa: BLE001
+                        st.error(f"Sync failed: {exc}")
+
+        with st.form("manual_sync"):
+            st.caption("Or sync any call by id (e.g. a call id from the BimpeAI console)")
+            m1, m2 = st.columns(2)
+            mcust = m1.text_input("Customer id", value=customer_id)
+            mcall = m2.text_input("Call id", value=st.session_state.get("last_call_id", ""))
+            if st.form_submit_button("Process this call"):
+                if mcust and mcall:
+                    try:
+                        resp = requests.post(
+                            f"{API_BASE}/voice/customers/{mcust}/calls/{mcall}/sync",
+                            params={"wait": "true"},
+                            timeout=600,
+                        )
+                        st.success(resp.json()) if resp.ok else st.error(resp.text)
+                    except Exception as exc:  # noqa: BLE001
+                        st.error(f"Sync failed: {exc}")
+                else:
+                    st.warning("Need both a customer id and a call id.")
+
+
+# --------------------------------------------------------------------------- #
+# Call transcript & structured summary (drill-in, incl. transaction context)
+# --------------------------------------------------------------------------- #
+def _call_detail_panel() -> None:
+    with st.expander("🔍 Call transcript & summary (transactions)", expanded=False):
+        calls = q(
+            """
+            SELECT ca.id AS call_id, ca.customer_id AS customer_id,
+                   cu.name AS customer, ca.issue AS issue, ca.sentiment AS sentiment,
+                   ca.created_at AS created_at
+            FROM calls ca
+            JOIN customers cu ON cu.id = ca.customer_id
+            ORDER BY ca.created_at DESC
+            LIMIT 100
+            """
+        )
+        if calls.empty:
+            st.info("No calls captured yet. Place a call above, then press **Sync & process**.")
+            return
+
+        ids = [str(x) for x in calls["call_id"].tolist()]
+        default = st.session_state.get("last_call_id")
+        default_idx = ids.index(default) if default in ids else 0
+        idx = st.selectbox(
+            "Pick a call",
+            options=range(len(ids)),
+            index=default_idx,
+            format_func=lambda i: (
+                f"{calls.iloc[i]['customer']} · {calls.iloc[i]['call_id']} · "
+                f"{str(calls.iloc[i]['created_at'])[:19]} · "
+                f"{str(calls.iloc[i]['issue'] or '—').replace('_', ' ')}"
+            ),
+            key="detail_call",
+        )
+        call_id = ids[idx]
+
+        detail = q("SELECT * FROM calls WHERE id = ?", (call_id,))
+        if detail.empty:
+            return
+        d = detail.iloc[0]
+
+        # --- Customer + transaction ("account") context ------------------- #
+        cust_df = q("SELECT * FROM customers WHERE id = ?", (d["customer_id"],))
+        if not cust_df.empty:
+            c = cust_df.iloc[0]
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Customer", c["name"])
+            m2.metric("Status", str(c["status"] or "").title())
+            m3.metric("Dormant balance", f"₦{_num(c['dormant_balance_ngn']):,.0f}")
+            m4.metric("Est. monthly value", f"₦{_num(c['est_monthly_value_ngn']):,.0f}")
+            st.markdown(
+                f"**Last transaction / event:** `{c['last_event_type'] or '—'}` — "
+                f"{c['last_event_detail'] or 'n/a'}  \n"
+                f"**Event date:** {c['last_event_date'] or '—'}  ·  "
+                f"**Last active:** {c['last_active_date'] or '—'}  ·  "
+                f"**Phone:** `{c['phone']}`  ·  **Language:** {c['preferred_language']}"
+            )
+
+        # --- Structured summary ------------------------------------------- #
+        st.markdown("#### 🧾 Structured call summary")
+        if d["summary"]:
+            st.success(d["summary"])
+        st.caption(
+            f"issue **{d['issue'] or '—'}** · churn reason **{d['churn_reason'] or '—'}** · "
+            f"sentiment **{d['sentiment'] or '—'}** · intent to return **{d['intent_to_return'] or '—'}** · "
+            f"urgency **{d['urgency'] or '—'}** · fraud **{'yes' if d['fraud_flag'] else 'no'}**"
+        )
+        if d["reason_detail"]:
+            st.markdown(f"**What happened:** {d['reason_detail']}")
+        if d["fraud_detail"]:
+            st.error(f"🚩 Fraud detail: {d['fraud_detail']}")
+
+        facts = {
+            "Issue": d["issue"] or "—",
+            "Churn reason": d["churn_reason"] or "—",
+            "Reason detail": d["reason_detail"] or "—",
+            "Sentiment": d["sentiment"] or "—",
+            "Intent to return": d["intent_to_return"] or "—",
+            "Urgency": d["urgency"] or "—",
+            "Recovery possible": "yes" if d["recovery_possible"] else "no",
+            "Fraud flagged": "yes" if d["fraud_flag"] else "no",
+            "Resolution offered": d["resolution_offered"] or "—",
+            "Customer accepted": "yes" if d["customer_accepted"] else "no",
+            "Follow-up needed": "yes" if d["follow_up_needed"] else "no",
+            "Duration": f"{int(_num(d['duration_sec']))}s",
+            "Extraction source": d["extraction_source"] or "—",
+            "Recommended product fix": d["recommended_product_fix"] or "—",
+        }
+        st.dataframe(
+            pd.DataFrame({"field": list(facts), "value": list(facts.values())}),
+            width="stretch",
+            hide_index=True,
+        )
+
+        # --- Transcript ---------------------------------------------------- #
+        st.markdown("#### 🗣️ Transcript")
+        transcript = d["transcript"]
+        if transcript:
+            with st.container(height=260):
+                st.text(str(transcript))
+        else:
+            st.info("No transcript stored for this call yet.")
+        st.download_button(
+            "⬇️ Download transcript (.txt)",
+            data=str(transcript or ""),
+            file_name=f"{call_id}-transcript.txt",
+            mime="text/plain",
+        )
+
+        # --- Actions raised for this call --------------------------------- #
+        acts = q(
+            "SELECT type, detail, status, urgent FROM actions WHERE call_id = ?",
+            (call_id,),
+        )
+        if not acts.empty:
+            st.markdown("#### ✅ Actions raised")
+            st.dataframe(acts, width="stretch", hide_index=True)
+
+
+_call_panel()
+_call_detail_panel()
+st.divider()
 
 
 @st.fragment(run_every=3)
@@ -180,7 +418,7 @@ def live() -> None:
         if fixes.empty:
             st.write("None captured yet.")
         else:
-            st.dataframe(fixes, use_container_width=True, hide_index=True)
+            st.dataframe(fixes, width="stretch", hide_index=True)
 
     # --- Actions ---------------------------------------------------------- #
     st.subheader("Actions taken")
@@ -199,7 +437,7 @@ def live() -> None:
     if actions.empty:
         st.info("No actions yet.")
     else:
-        st.dataframe(actions, use_container_width=True, hide_index=True)
+        st.dataframe(actions, width="stretch", hide_index=True)
 
     # --- Customers -------------------------------------------------------- #
     with st.expander("👥 Customers", expanded=False):
@@ -211,7 +449,7 @@ def live() -> None:
             ORDER BY dormant_balance_ngn DESC
             """
         )
-        st.dataframe(customers, use_container_width=True, hide_index=True)
+        st.dataframe(customers, width="stretch", hide_index=True)
 
 
 live()

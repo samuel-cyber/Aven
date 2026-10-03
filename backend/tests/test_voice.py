@@ -166,7 +166,10 @@ def test_start_and_sync_call_runs_pipeline(temp_db, configured, no_llm, monkeypa
 
     monkeypatch.setattr(
         bimpeai, "start_call",
-        lambda cid, ctx, is_test_call=None: {"status": "initiated", "call_id": "call_abc123", "detail": "dialing", "is_test_call": True},
+        lambda cid, ctx, is_test_call=None, destination=None: {
+            "status": "initiated", "call_id": "call_abc123",
+            "detail": "dialing", "is_test_call": True,
+        },
     )
     monkeypatch.setattr(bimpeai, "wait_for_call", lambda call_id, **kw: dict(BIMPE_CALL_DETAIL))
 

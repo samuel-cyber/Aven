@@ -21,8 +21,16 @@ from ..db import conn
 from ..routes.webhooks import run_pipeline
 
 
-def start_voice_call(customer_id: str, *, is_test_call: bool | None = None) -> dict:
+def start_voice_call(
+    customer_id: str,
+    *,
+    is_test_call: bool | None = None,
+    destination: str | None = None,
+) -> dict:
     """Start an outbound BimpeAI call for a customer.
+
+    ``destination`` overrides the dialled number (e.g. your own phone) so you
+    can test the agent without changing the customer record.
 
     Returns a JSON-safe dict describing the call. Never raises for a missing
     API key: the result status is ``"stubbed"`` in that case.
@@ -32,7 +40,9 @@ def start_voice_call(customer_id: str, *, is_test_call: bool | None = None) -> d
         return {"ok": False, "error": "customer not found", "customer_id": customer_id}
 
     context = build_call_context(customer)
-    result = bimpeai.start_call(customer_id, context, is_test_call=is_test_call)
+    result = bimpeai.start_call(
+        customer_id, context, is_test_call=is_test_call, destination=destination
+    )
 
     return {
         "ok": result.get("status") in {"initiated", "stubbed"},
@@ -41,6 +51,7 @@ def start_voice_call(customer_id: str, *, is_test_call: bool | None = None) -> d
         "status": result.get("status"),
         "detail": result.get("detail"),
         "is_test_call": result.get("is_test_call"),
+        "destination": result.get("payload", {}).get("destination"),
         "poll_url": (
             f"/voice/customers/{customer_id}/calls/{result['call_id']}/sync"
             if result.get("call_id")
